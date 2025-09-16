@@ -1,4 +1,3 @@
-/* Kun det som er unikt for drink-kortet. Alt annet ligger i App.css. */
 /* Only styling unique for drink-card component. Other styling in App.css */
 
 .drink-card .media {
@@ -6,7 +5,7 @@
     grid-template-columns: 160px 1fr;
     gap: 1.1rem;
   }
-  
+
   @media (max-width: 640px) {
     .drink-card .media { grid-template-columns: 1fr; }
   }
