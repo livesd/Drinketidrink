@@ -17,10 +17,7 @@ async function get<T>(url: string): Promise<T> {
   if (!res.ok) throw new Error(`CocktailDB ${res.status}`);
   return res.json() as Promise<T>;
 }
-export async function getCategories(): Promise<string[]> {
-  const data = await get<{ drinks: { strCategory: string }[] }>(`${BASE}/list.php?c=list`);
-  return (data.drinks ?? []).map((d) => d.strCategory).sort((a, b) => a.localeCompare(b));
-}
+
 export async function getAlcoholicOptions(): Promise<string[]> {
   const data = await get<{ drinks: { strAlcoholic: string }[] }>(`${BASE}/list.php?a=list`);
   return (data.drinks ?? []).map((d) => d.strAlcoholic).sort((a, b) => a.localeCompare(b));
@@ -31,16 +28,7 @@ export async function searchByName(name: string): Promise<Drink[]> {
   const data = await get<{ drinks: Drink[] | null }>(`${BASE}/search.php?s=${q}`);
   return data.drinks ?? [];
 }
-export async function filterByCategory(category: string): Promise<DrinkLite[]> {
-  const q = encodeURIComponent(category);
-  const data = await get<{ drinks: DrinkLite[] | null }>(`${BASE}/filter.php?c=${q}`);
-  return data.drinks ?? [];
-}
-export async function filterByIngredient(ing: string): Promise<DrinkLite[]> {
-  const q = encodeURIComponent(ing);
-  const data = await get<{ drinks: DrinkLite[] | null }>(`${BASE}/filter.php?i=${q}`);
-  return data.drinks ?? [];
-}
+
 export async function filterByAlcoholic(kind: string): Promise<DrinkLite[]> {
   const q = encodeURIComponent(kind);
   const data = await get<{ drinks: DrinkLite[] | null }>(`${BASE}/filter.php?a=${q}`);
