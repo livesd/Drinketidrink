@@ -47,11 +47,9 @@
 
 .title {
   text-align: center;
-  justify-content: center;
-  margin-top: 40px;
+  margin: 40px auto;
   color: #F7E6CA;
-  position: absolute;
-  transform: translateX(-50%);
+  transform: none;
   font-size: 2cm;
 
 
