@@ -1,7 +1,7 @@
-import '@testing-library/jest-dom/vitest';
+import "@testing-library/jest-dom/vitest";
 import { screen, render, fireEvent } from "@testing-library/react";
 import { vi } from "vitest";
-import CocktailCard from "../components/card";
+import CocktailCard from "../components/Card";
 import type { Drink } from "../api/cocktails";
 
 const drink: Drink = {
@@ -18,7 +18,11 @@ test("renders title and toggles favorite", () => {
   const onToggle = vi.fn();
 
   render(
-    <CocktailCard drink={drink} isFavorite={false} onToggleFavorite={onToggle} />
+    <CocktailCard
+      drink={drink}
+      isFavorite={false}
+      onToggleFavorite={onToggle}
+    />
   );
 
   expect(screen.getByRole("heading", { name: /mojito/i })).toBeInTheDocument();
