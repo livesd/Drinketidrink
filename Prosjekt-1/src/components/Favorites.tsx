@@ -1,5 +1,3 @@
-import React from "react";
-
 type Props = {
     favorites: { id: string, name: string } [];
     onToggleFavorite: (id: string, name: string) => void;
