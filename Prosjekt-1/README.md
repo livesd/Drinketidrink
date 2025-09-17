@@ -1,69 +1,60 @@
-# React + TypeScript + Vite
+# Project 1
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Open in Virtual Machine](http://129.241.104.125/project1/)
 
-Currently, two official plugins are available:
+## Group info
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Group No: 8
+Participants: Ailin Anjadatter Tinglum, Cecilia Lie, Live Stamnes Dyrland, Nhung Pham
 
-## Expanding the ESLint configuration
+## Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This repository contains a website for viewing drink recipes.
+When you open the website you are met with a main page where you can swipe between different recipe cards. These cards can be favorited by pressing the "star" button. This action adds the drink to a favorites list. You can also filter the search based on if the drink is alcoholic or non-alcoholic.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The project is built with:
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+* TypeScript
+* React
+* Vite
+* Node v.24.6.X+
+* npm v11.+.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Project Structure
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This repository contains a main folder `src` where the core functionality of the project is implemented. 
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+* [App.tsx](src/App.tsx) combines the different compoents onto a main webpage
+* [App.css](src/App.css) styling for `App.tsx`
+* [main.tsx](src/main.tsx) runs the app
+* [index.css](src/index.css) styling for `main.tsx`
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Inside the  `src` folder, we have different folders for the different parts of the app.
+
+* api - calls on api and sets up methods for use in other files
+  [coctails.ts](src/api/cocktails.ts)
+* components - core logic and styling for the different components shown on the homepage
+  [card.tsx](src/components/card.tsx)
+  [Card.css](src/components/Card.css)
+  [FilterBar.tsx](src/components/FilterBar.tsx)
+  [filterBar.css](src/components/filterBar.css)
+  [Swipe.tsx](src/components/Swipe.tsx)
+  [swipe.css](src/components/swipe.css)
+* hooks -
+
+There are tests located in the folder [test](src/test)
+  
+## Development process
+
+At our first group meeting we decided what our project was going to be by first brainstorming different topics and then looking up different REST Api's for these topics. When we found an accessible API for drink recipes, we started brainstorming what we wanted the webpage to look like and what features we wanted to implement.
+
+To structure the workflow we set up a project on github, made todos, issues and milestones. The todos and issues are based on the features we decided to implement for this project.
+
+During this first meeting we divided up the tasks so each person could start working on 
+
+## Use of AI
+
+As part of this project, we made use of AI-based tools to improve both efficiency and accuracy when working with complex features. In particular, we relied on Claude Sonnet 4 and Chat GPT to explore recommended approaches for implementing our app.
+
+
+<!-- Dokumentasjon i form av readme på git som dokumenterer og forklarer valg, dokumenterer hva som er testet --!ß>
