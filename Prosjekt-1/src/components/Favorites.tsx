@@ -8,7 +8,6 @@ type Props = {
 export default function Favorites( {favorites, onToggleFavorite}: Props) {
     return (
         <aside className = "favorites" >
-            <h2>Favorites</h2>
             {favorites.length === 0 ? (
                 <p>No favorites yet</p>
             ) : (
