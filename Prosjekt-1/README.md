@@ -1,20 +1,28 @@
-# Project 1
+# Project 1: Drink Recipe Viewer
 
 [Open in Virtual Machine](http://129.241.104.125/project1/)
 
-## Group info
+## Group Information
 
-Group No: 8
-Participants: Ailin Anjadatter Tinglum, Cecilia Lie, Live Stamnes Dyrland, Nhung Pham
+* **Group No:** 8
+* **Participants:** Ailin Anjadatter Tinglum, Cecilia Lie, Live Stamnes Dyrland, Nhung Pham
 
 ## Overview
 
-This repository contains a website for viewing drink recipes.
-When you open the website you are met with a main page where you can swipe between different recipe cards. These cards can be favorited by pressing the "star" button. This action adds the drink to a favorites list. You can also filter the search based on if the drink is alcoholic or non-alcoholic.
+This repository contains a web application for viewing drink recipes. Users can swipe between different recipe cards, favorite drinks by pressing the "star" button, and filter drinks based on their alcoholic content.
+
+### Key Features
+
+* **Swipeable Recipe Cards:** Easily browse through various drink recipes.
+* **Favorites List:** Save your favorite drinks for quick access.
+* **Filtering Options:** Search for drinks based on alcoholic or non-alcoholic categories.
+
+## Technology Stack
 
 The project is built with:
 
 * TypeScript
+* CSS
 * React
 * Vite
 * Node v.24.6.X+
@@ -22,64 +30,77 @@ The project is built with:
 
 ## Project Structure
 
-This repository contains a main folder `src` where the core functionality of the project is implemented. 
+The core functionality of the project is implemented in the `src` folder, which contains the following structure:
+
+* **api**: Contains API calls and methods for data fetching.
+  [coctails.ts](src/api/cocktails.ts)
+* **components**: Core logic and styling for the different components displayed on the homepage.
+  [Card.tsx](src/components/card.tsx)
+  [card.css](src/components/Card.css)
+  [FilterBar.tsx](src/components/FilterBar.tsx)
+  [filterBar.css](src/components/filterBar.css)
+  [Swipe.tsx](src/components/Swipe.tsx)
+  [swipe.css](src/components/swipe.css)
+* **hooks**: Custom hooks for managing user choices, such as filters and favorites.
+  [useLocalStorage.ts](src/hooks/useLocalStorage.ts)
+  [useSessionStorage.ts](src/hooks/useSessionStorage.ts)
+
+* **tests**: Contains unit tests for various components and functionalities.
+ [test](src/test)
+
+In the parent folder, we have files connecting main functionality to a main webpage which is run from the `main.tsx`
 
 * [App.tsx](src/App.tsx) combines the different compoents onto a main webpage
 * [App.css](src/App.css) styling for `App.tsx`
 * [main.tsx](src/main.tsx) runs the app
 * [index.css](src/index.css) styling for `main.tsx`
-
-Inside the  `src` folder, we have different folders for the different parts of the app.
-
-* api - calls on api and sets up methods for use in other files
-  [coctails.ts](src/api/cocktails.ts)
-* components - core logic and styling for the different components shown on the homepage
-  [card.tsx](src/components/card.tsx)
-  [Card.css](src/components/Card.css)
-  [FilterBar.tsx](src/components/FilterBar.tsx)
-  [filterBar.css](src/components/filterBar.css)
-  [Swipe.tsx](src/components/Swipe.tsx)
-  [swipe.css](src/components/swipe.css)
-* hooks - saving users choices, for example filters and favorites
-  [useLocalStorage.ts](src/hooks/useLocalStorage.ts)
-  [useSessionStorage.ts](src/hooks/useSessionStorage.ts)
-
-There are tests located in the folder [test](src/test)
   
 ## Development process
 
-At our first group meeting we decided what our project was going to be by first brainstorming different topics and then looking up different REST Api's for these topics. When we found an accessible API for drink recipes, we started brainstorming what we wanted the webpage to look like and what features we wanted to implement.
+During our initial group meeting, we brainstormed project ideas and explored various REST APIs. After selecting an accessible API for drink recipes, we discussed the desired features and layout for the webpage.
 
-To structure the workflow we set up a project on github, made todos, issues and milestones. The todos and issues are based on the features we decided to implement for this project.
-
-During this first meeting we divided up the tasks so each person could start working on 
+To structure our workflow, we set up a GitHub project with todos, issues, and milestones based on the features we aimed to implement. Tasks were divided among group members to facilitate parallel development.
 
 ## Use of AI
 
-As part of this project, we made use of AI-based tools to improve both efficiency and accuracy when working with complex features. In particular, we relied on Claude Sonnet 4 and Chat GPT to explore recommended approaches for implementing our app.
-
-In the beginning we used AI
+We utilized AI-based tools, including Claude Sonnet 4 and ChatGPT, to enhance our efficiency and accuracy while implementing complex features. AI assistance was particularly beneficial during the initial stages of the project for exploring recommended approaches.
 
 ## Getting started
 
-The project can be opened using the virtual machine, or by running these commands:
+To run the project locally, follow these steps:
 
-1. ensure you are in the `Prosjekt-1` folder:
-   `cd Prosjekt-1`
-2. download the necessary packages by running:
-   `npm install`
-   `npm install @tanstack/react-query`
-   `npm install @tanstack/react-query-devtools`
-  in your terminal
-3. run the project using
-   `npm run dev`
+1. Navigate to the `Prosjekt-1` folder:
 
-The tests can be run from the `test`folder.
+    ```bash
+    cd Prosjekt-1 
+    ```
 
-1. ensure you are in the test folder by running:
-   `cd test`
-   from `Prosjekt-1`
-2. run the tests using
-   `npm run test`
+2. Install the necessary packages:
 
-<!-- Dokumentasjon i form av readme på git som dokumenterer og forklarer valg, dokumenterer hva som er testet og husk å dokumenter bruk av AI--!ß>
+   ```bash
+   npm install
+   npm install @tanstack/react-query
+   npm install @tanstack/react-query-devtools 
+   ```
+
+3. Start the development server:
+  
+   ```bash
+   npm run dev 
+   ```
+
+### Running tests
+
+To run the test, follow these steps:
+
+1. Navigate to the `test` folder:
+
+    ```bash
+   cd test 
+   ```
+
+2. Execute the tests
+
+    ```bash
+   npm run test 
+   ```
