@@ -1,4 +1,5 @@
-import { useEffect, useState, useCallback } from "react";
+// src/components/CocktailBrowser.tsx
+import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import FilterBar from "./FilterBar";
 import Card from "./Card";
@@ -12,79 +13,69 @@ import {
   type DrinkLite,
 } from "../api/cocktails";
 
-function normalizeLabel(s: string | null | undefined) {
-  return (s ?? "").toLowerCase().replace(/[_\s]+/g, "");
-}
+const norm = (s: string | null | undefined) =>
+  (s ?? "").toLowerCase().replace(/[_\s]+/g, "");
 
-function fromLite(l: DrinkLite): Drink {
-  return {
-    ...l,
-    strCategory: null,
-    strAlcoholic: null,
-    strGlass: null,
-    strInstructions: null,
-  };
-}
+const fromLite = (l: DrinkLite): Drink => ({
+  ...l,
+  strCategory: null,
+  strAlcoholic: null,
+  strGlass: null,
+  strInstructions: null,
+});
 
-export default function DrinksContainer() {
+export default function CocktailBrowser() {
   const [filters, setFilters] = useState({ qName: "", alc: "" });
   const usingFilters = Boolean(filters.qName.trim() || filters.alc.trim());
 
-  const q = useQuery({
+  const listQ = useQuery({
     queryKey: usingFilters
       ? ["drinks-lite", "filters", filters.qName, filters.alc]
       : ["drinks-lite", "initial"],
-    staleTime: 1000 * 60 * 10,
+    staleTime: 10 * 60 * 1000,
     queryFn: async (): Promise<DrinkLite[]> => {
       if (filters.qName.trim()) {
         const byName = await searchByName(filters.qName);
         const narrowed = filters.alc
-          ? byName.filter(
-              (d) => normalizeLabel(d.strAlcoholic) === normalizeLabel(filters.alc)
-            )
+          ? byName.filter((d) => norm(d.strAlcoholic) === norm(filters.alc))
           : byName;
         return narrowed.map(toLite);
       }
       if (filters.alc.trim()) {
-        return await filterByAlcoholic(filters.alc);
+        return filterByAlcoholic(filters.alc);
       }
       const deck = await getInitialDeck();
       return deck.map(toLite);
     },
   });
 
-  const items = q.data ?? []; 
+  const items = listQ.data ?? [];
+  const [index, setIndex] = useState(0);
 
-  const useRandom = !q.isLoading && items.length === 0;
-  const randomQ = useQuery({
-    queryKey: ["random-fallback", filters.qName, filters.alc],
-    enabled: useRandom,
-    queryFn: async (): Promise<Drink> => getRandomDrink(),
-    staleTime: 1000 * 60,
+  useEffect(() => setIndex(0), [items.length]);
+
+  const hasResults = items.length > 0;
+  const currentLite = hasResults ? items[index] : null;
+
+  const detailQ = useQuery({
+    queryKey: ["drink-detail", currentLite?.idDrink],
+    enabled: !!currentLite,
+    queryFn: async () => (currentLite ? lookupById(currentLite.idDrink) : null),
+    staleTime: 10 * 60 * 1000,
   });
 
-  const navItems: DrinkLite[] =
-    items.length > 0
-      ? items
-      : randomQ.data
-      ? [toLite(randomQ.data as Drink)]
-      : [];
+  const currentDrink: Drink | null = currentLite
+    ? detailQ.data ?? fromLite(currentLite)
+    : null;
 
-  const [index, setIndex] = useState(0);
-  useEffect(() => setIndex(0), [navItems.length]);
-
-  const hasResults = navItems.length > 0;
-  const currentLite = hasResults ? navItems[index] : null;
-
-  const next = useCallback(() => {
-    if (!hasResults) return;
-    setIndex((i) => Math.min(i + 1, navItems.length - 1));
-  }, [hasResults, navItems.length]);
-
-  const prev = useCallback(() => {
-    if (!hasResults) return;
-    setIndex((i) => Math.max(i - 1, 0));
-  }, [hasResults]);
+  const next = useCallback(
+    () => hasResults && setIndex((i) => Math.min(i + 1, items.length - 1)),
+    [hasResults, items.length]
+  );
+  const prev = useCallback(
+    () => hasResults && setIndex((i) => Math.max(i - 1, 0)),
+    [hasResults]
+  );
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -94,16 +85,6 @@ export default function DrinksContainer() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [next, prev]);
-
-  const detailsQ = useQuery({
-    queryKey: ["drink-detail", currentLite?.idDrink],
-    enabled: !!currentLite,
-    queryFn: async () => lookupById(currentLite!.idDrink),
-    staleTime: 1000 * 60 * 10,
-  });
-
-  const currentDrink: Drink | null =
-    currentLite ? (detailsQ.data ?? fromLite(currentLite)) : null;
 
   const [favs, setFavs] = useState<Set<string>>(new Set());
   const toggleFav = (id: string) =>
@@ -117,14 +98,16 @@ export default function DrinksContainer() {
       return n;
     });
 
-  const showTopLoading = q.isLoading || (useRandom && randomQ.isLoading);
-
   return (
     <>
       <FilterBar onFiltersChange={setFilters} />
 
-      {showTopLoading && <p className="muted">Loading…</p>}
-      {q.isError && !hasResults && <p className="error">Could not fetch drinks.</p>}
+      {(listQ.isLoading || detailQ.isLoading) && (
+        <p className="muted">Loading…</p>
+      )}
+      {listQ.isError && !hasResults && (
+        <p className="error">Could not fetch drinks.</p>
+      )}
 
       <div className="swipe-wrap">
         {hasResults && currentDrink ? (
@@ -148,33 +131,19 @@ export default function DrinksContainer() {
                 className="nav right"
                 onClick={next}
                 aria-label="Next"
-                disabled={index === navItems.length - 1}
+                disabled={index === items.length - 1}
               />
             </div>
 
             <div className="counter">
-              {index + 1} / {navItems.length}
-              {!usingFilters && items.length > 0 && <> &nbsp;• All drinks</>}
+              {index + 1} / {items.length}
+              {!usingFilters && items.length > 0}
             </div>
           </>
         ) : (
-          !showTopLoading && <p className="muted">No results.</p>
+          !listQ.isLoading && <p className="muted">No results.</p>
         )}
       </div>
     </>
   );
 }
-
-async function getRandomDrink(): Promise<Drink> {
-  const response = await fetch("https://www.thecocktaildb.com/api/json/v1/1/random.php");
-  if (!response.ok) {
-    throw new Error("Failed to fetch a random drink");
-  }
-  const data = await response.json();
-  if (!data.drinks || data.drinks.length === 0) {
-    throw new Error("No random drink found");
-  }
-  return data.drinks[0];
-}
-
-
