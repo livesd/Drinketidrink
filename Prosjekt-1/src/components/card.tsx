@@ -1,6 +1,6 @@
 import type { Drink } from "../api/cocktails";
 import { toIngredients } from "../api/cocktails";
-import "./Card.css";
+import "./card.css";
 
 type Props = {
   drink: Drink;

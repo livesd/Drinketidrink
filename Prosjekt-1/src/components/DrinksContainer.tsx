@@ -2,7 +2,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import FilterBar from "./FilterBar";
-import Card from "./Card";
+import Card from "./card"
+
 import {
   searchByName,
   filterByAlcoholic,
