@@ -40,7 +40,9 @@ Inside the  `src` folder, we have different folders for the different parts of t
   [filterBar.css](src/components/filterBar.css)
   [Swipe.tsx](src/components/Swipe.tsx)
   [swipe.css](src/components/swipe.css)
-* hooks -
+* hooks - saving users choices, for example filters and favorites
+  [useLocalStorage.ts](src/hooks/useLocalStorage.ts)
+  [useSessionStorage.ts](src/hooks/useSessionStorage.ts)
 
 There are tests located in the folder [test](src/test)
   
@@ -56,5 +58,28 @@ During this first meeting we divided up the tasks so each person could start wor
 
 As part of this project, we made use of AI-based tools to improve both efficiency and accuracy when working with complex features. In particular, we relied on Claude Sonnet 4 and Chat GPT to explore recommended approaches for implementing our app.
 
+In the beginning we used AI
 
-<!-- Dokumentasjon i form av readme på git som dokumenterer og forklarer valg, dokumenterer hva som er testet --!ß>
+## Getting started
+
+The project can be opened using the virtual machine, or by running these commands:
+
+1. ensure you are in the `Prosjekt-1` folder:
+   `cd Prosjekt-1`
+2. download the necessary packages by running:
+   `npm install`
+   `npm install @tanstack/react-query`
+   `npm install @tanstack/react-query-devtools`
+  in your terminal
+3. run the project using
+   `npm run dev`
+
+The tests can be run from the `test`folder.
+
+1. ensure you are in the test folder by running:
+   `cd test`
+   from `Prosjekt-1`
+2. run the tests using
+   `npm run test`
+
+<!-- Dokumentasjon i form av readme på git som dokumenterer og forklarer valg, dokumenterer hva som er testet og husk å dokumenter bruk av AI--!ß>
