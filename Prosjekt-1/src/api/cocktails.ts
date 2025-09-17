@@ -23,10 +23,27 @@ async function get<T>(url: string): Promise<T> {
   return res.json() as Promise<T>; //returns the fetched data as json
 }
 
-//GET function for if the drink contains alcohol or not
+export function toApiAlcoholicParam(label: string): string {
+  const k = label.trim().toLowerCase();
+  if (k.startsWith("non")) return "Non_Alcoholic";
+  if (k.startsWith("optional")) return "Optional_alcohol";
+  return "Alcoholic"; // default
+}
+
+export function toLite(d: Drink | DrinkLite): DrinkLite {
+  return {
+    idDrink: d.idDrink,
+    strDrink: d.strDrink,
+    strDrinkThumb: d.strDrinkThumb,
+  };
+}
+
 export async function getAlcoholicOptions(): Promise<string[]> {
-  const data = await get<{ drinks: { strAlcoholic: string }[] }>(`${BASE}/list.php?a=list`); //returns a list of alcoholic options
-  return (data.drinks ?? []).map((d) => d.strAlcoholic).sort((a, b) => a.localeCompare(b)); //sorts the list alphabetically
+  const data = await get<{ drinks: { strAlcoholic: string }[] }>(`${BASE}/list.php?a=list`);
+  return (data.drinks ?? [])
+    .map((d) => d.strAlcoholic)
+    .filter(Boolean)
+    .sort((a, b) => a.localeCompare(b));
 }
 
 //search function for drinks, searched by drink name 
@@ -49,6 +66,30 @@ export async function lookupById(id: string): Promise<Drink | null> {
   const data = await get<{ drinks: Drink[] | null }>(`${BASE}/lookup.php?i=${id}`);
   return data.drinks?.[0] ?? null; //returns a drinks detailed data or null if no drink is found
 }
+
+
+// Søk på første bokstav (gir mange treff pr. bokstav)
+export async function searchByFirstLetter(letter: string): Promise<Drink[]> {
+  const f = encodeURIComponent(letter);
+  const data = await get<{ drinks: Drink[] | null }>(`${BASE}/search.php?f=${f}`);
+  return data.drinks ?? [];
+}
+
+export async function getInitialDeck(): Promise<Drink[]> {
+  const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+  const batches: string[][] = [];
+  for (let i = 0; i < letters.length; i += 5) batches.push(letters.slice(i, i + 5));
+
+  const all: Drink[] = [];
+  for (const batch of batches) {
+    const parts = await Promise.all(batch.map((l) => searchByFirstLetter(l)));
+    for (const arr of parts) all.push(...arr);
+  }
+  const map = new Map<string, Drink>();
+  all.forEach((d) => map.set(d.idDrink, d));
+  return Array.from(map.values()).sort((a, b) => a.strDrink.localeCompare(b.strDrink));
+}
+
 //makes a neat ingredient list of a drink
 export function toIngredients(d: Drink) {
   const out: { ingredient: string; measure?: string }[] = [];

@@ -10,7 +10,10 @@ export default function CocktailCard({ drink }: Props) {
   const ingredients = toIngredients(drink);
 
   return (
-    <article className="card drink-card" aria-labelledby={`drink-${drink.idDrink}-title`}>
+    <article
+      className="card drink-card"
+      aria-labelledby={`drink-${drink.idDrink}-title`}
+    >
       <header className="lyrics-header">
         <h2 id={`drink-${drink.idDrink}-title`}>{drink.strDrink}</h2>
       </header>
@@ -59,4 +62,3 @@ export default function CocktailCard({ drink }: Props) {
     </article>
   );
 }
-
