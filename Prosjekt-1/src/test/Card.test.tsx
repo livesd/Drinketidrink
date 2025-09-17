@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom/vitest";
 import { screen, render, fireEvent } from "@testing-library/react";
 import { vi } from "vitest";
-import CocktailCard from "../components/Card";
+import CocktailCard from "../components/card";
 import type { Drink } from "../api/cocktails";
 
 const drink: Drink = {
