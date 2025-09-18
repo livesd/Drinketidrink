@@ -1,7 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+// src/components/CocktailBrowser.tsx
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import FilterBar from "./FilterBar";
-import Card from "./card"
+import Card from "./card";
+import FavoritesSheet from "./FavoritesSheet";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import "./FavoritesSheet.css";
 
 import {
   searchByName,
@@ -33,6 +37,8 @@ export default function CocktailBrowser() {
       ? ["drinks-lite", "filters", filters.qName, filters.alc]
       : ["drinks-lite", "initial"],
     staleTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    placeholderData: keepPreviousData, // keep previous list while searching
     queryFn: async (): Promise<DrinkLite[]> => {
       if (filters.qName.trim()) {
         const byName = await searchByName(filters.qName);
@@ -51,7 +57,6 @@ export default function CocktailBrowser() {
 
   const items = listQ.data ?? [];
   const [index, setIndex] = useState(0);
-
   useEffect(() => setIndex(0), [items.length]);
 
   const hasResults = items.length > 0;
@@ -60,8 +65,9 @@ export default function CocktailBrowser() {
   const detailQ = useQuery({
     queryKey: ["drink-detail", currentLite?.idDrink],
     enabled: !!currentLite,
-    queryFn: async () => (currentLite ? lookupById(currentLite.idDrink) : null),
     staleTime: 10 * 60 * 1000,
+    placeholderData: keepPreviousData, // keep last detail while switching
+    queryFn: async () => (currentLite ? lookupById(currentLite.idDrink) : null),
   });
 
   const currentDrink: Drink | null = currentLite
@@ -86,22 +92,60 @@ export default function CocktailBrowser() {
     return () => window.removeEventListener("keydown", onKey);
   }, [next, prev]);
 
-  const [favs, setFavs] = useState<Set<string>>(new Set());
-  const toggleFav = (id: string) =>
-    setFavs((s) => {
-      const n = new Set(s);
-      if (n.has(id)) {
-        n.delete(id);
-      } else {
-        n.add(id);
-      }
-      return n;
-    });
+  // Persistent favorites
+  const [favs, toggleFav] = useLocalStorage<{ id: string; name: string }[]>("favorites", []);
+
+  const jumpTo = useCallback(
+    (id: string) => {
+      const i = items.findIndex((d) => d.idDrink === id);
+      if (i >= 0) setIndex(i);
+    },
+    [items]
+  );
+
+  const [openFavs, setOpenFavs] = useState(false);
+  const openButtonLabel = useMemo(
+    () => (openFavs ? "Lukk favoritter" : "Åpne favoritter"),
+    [openFavs]
+  );
 
   return (
     <>
-      <FilterBar onFiltersChange={setFilters} />
+      <div className="topbar">
+        <FilterBar onFiltersChange={setFilters} />
+        <button
+          type="button"
+          className="hamburger"
+          aria-label={openButtonLabel}
+          aria-expanded={openFavs}
+          aria-controls="favorites-sheet"
+          onClick={() => setOpenFavs((v) => !v)}
+        >
+          <span className="bar" />
+          <span className="bar" />
+          <span className="bar" />
+          {favs.length > 0 && (
+            <span className="badge" aria-hidden="true">
+              {favs.length}
+            </span>
+          )}
+        </button>
+      </div>
 
+      <FavoritesSheet
+        id="favorites-sheet"
+        open={openFavs}
+        favorites={favs}
+        onClose={() => setOpenFavs(false)}
+        onSelect={jumpTo}
+        onToggleFavorite={(id, name) =>
+          toggleFav((prev) =>
+            prev.some((fav) => fav.id === id)
+              ? prev.filter((fav) => fav.id !== id)
+              : [...prev, { id, name }]
+          )
+        }
+      />
 
       {listQ.isError && !hasResults && (
         <p className="error">Could not fetch drinks.</p>
@@ -121,8 +165,14 @@ export default function CocktailBrowser() {
                 <Card
                   key={currentDrink.idDrink}
                   drink={currentDrink}
-                  isFavorite={favs.has(currentDrink.idDrink)}
-                  onToggleFavorite={(id) => toggleFav(id)}
+                  isFavorite={favs.some((f) => f.id === currentDrink.idDrink)}
+                  onToggleFavorite={() =>
+                    toggleFav((prev) =>
+                      prev.some((fav) => fav.id === currentDrink.idDrink)
+                        ? prev.filter((fav) => fav.id !== currentDrink.idDrink)
+                        : [...prev, { id: currentDrink.idDrink, name: currentDrink.strDrink }]
+                    )
+                  }
                 />
               </div>
               <button
@@ -135,7 +185,6 @@ export default function CocktailBrowser() {
 
             <div className="counter">
               {index + 1} / {items.length}
-              {!usingFilters && items.length > 0}
             </div>
           </>
         ) : (
