@@ -34,6 +34,10 @@ The core functionality of the project is implemented in the `src` folder, which 
 
 * **api**: Contains API calls and methods for data fetching.
   [coctails.ts](src/api/cocktails.ts)
+* **assets**: Contains images used on the website
+* **core**: Contains logic for adding and saving favorites
+  [Favorites.tsx](src/core/Favorites.tsx)
+  [useFavorites.ts](src/core/useFavorites.ts)
 * **components**: Core logic and styling for the different components displayed on the homepage.
   [Card.tsx](src/components/card.tsx)
   [card.css](src/components/Card.css)
@@ -46,7 +50,7 @@ The core functionality of the project is implemented in the `src` folder, which 
   [useSessionStorage.ts](src/hooks/useSessionStorage.ts)
 
 * **tests**: Contains unit tests for various components and functionalities.
- [test](src/test)
+  [test](src/test)
 
 In the parent folder, we have files connecting main functionality to a main webpage which is run from the `main.tsx`
 
@@ -57,7 +61,7 @@ In the parent folder, we have files connecting main functionality to a main webp
   
 ## Development process
 
-During our initial group meeting, we brainstormed project ideas and explored various REST APIs. After selecting an accessible API for drink recipes, we discussed the desired features and layout for the webpage.
+During our initial group meeting, we brainstormed project ideas and explored various REST APIs. After selecting an API for drink recipes, we discussed the desired features and layout for the webpage. In our second group meeting we realized that the API we had chosen needed an access key, so we decided to change to an accessible API and did the necessary changes in the code.
 
 To structure our workflow, we set up a GitHub project with todos, issues, and milestones based on the features we aimed to implement. Tasks were divided among group members to facilitate parallel development.
 
