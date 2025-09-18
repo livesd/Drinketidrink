@@ -9,6 +9,7 @@
   align-items: flex-end;
   max-width: 600px;
   margin: 1rem auto;
+  height: 60px;
 }
 
 .searchbar label {

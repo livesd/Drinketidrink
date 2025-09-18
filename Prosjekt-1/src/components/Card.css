@@ -1,13 +1,14 @@
 .card.drink-card {
-  background: #f7e6ca;        
+  background: #f7e6ca;
   color: #1f2937;
   border-radius: 16px;
-  box-shadow: 0 10px 20px rgba(0,0,0,.12);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .12);
   padding: 1.25rem;
   max-width: 760px;
   width: min(94vw, 760px);
-  margin: 0 auto;        
+  height: 400px;
   text-align: left;
+  overflow-y: auto;
 }
 
 .card-header {
@@ -17,10 +18,11 @@
   gap: .75rem;
   margin-bottom: .5rem;
 }
+
 .card-header h2 {
   margin: 0;
   font-size: 1.6rem;
-  
+
 }
 
 .meta {
@@ -34,8 +36,11 @@
   grid-template-columns: 160px 1fr;
   gap: 1.1rem;
 }
+
 @media (max-width: 640px) {
-  .drink-card .media { grid-template-columns: 1fr; }
+  .drink-card .media {
+    grid-template-columns: 1fr;
+  }
 }
 
 .drink-card .thumb {
@@ -45,29 +50,37 @@
   border-radius: 12px;
 }
 
-.instructions { margin-top: 1rem; }
+.instructions {
+  margin-top: 1rem;
+}
 
 .nutrition {
   border-collapse: collapse;
   width: 100%;
   margin-top: .25rem;
 }
+
 .nutrition th,
 .nutrition td {
   padding: .35rem .5rem;
-  border-bottom: 1px solid rgba(0,0,0,.08);
+  border-bottom: 1px solid rgba(0, 0, 0, .08);
 }
+
 .nutrition th {
   text-align: left;
   font-weight: 600;
   color: #1f2937;
 }
+
 .nutrition td {
   text-align: right;
   color: #374151;
 }
 
-.swipe-wrap { max-width: 980px; margin: 1rem auto; }
+.swipe-wrap {
+  max-width: 980px;
+  margin: 1rem auto;
+}
 
 .pager {
   display: grid;
@@ -77,9 +90,9 @@
 }
 
 .card-slot {
-  min-height: 120px;
-  display: grid;
-  place-items: center;    
+  min-height: 500px;
+  display: flex;
+
 }
 
 .nav {
@@ -89,22 +102,33 @@
   background: #f7e6ca;
   display: grid;
   cursor: pointer;
-  align-items: center;          
+  align-items: center;
   justify-content: center;
 }
+
 .nav::before {
   content: "";
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   position: relative;
 }
-.nav.left::before  { 
-  border-right: 8px solid rgb(83, 68, 71); }
+
+.nav.left::before {
+  border-right: 8px solid rgb(83, 68, 71);
+}
 
 .nav.right::before {
- border-left:  8px solid rgb(83, 68, 71); }
- 
-.nav:disabled { opacity: .4; cursor: not-allowed; }
+  border-left: 8px solid rgb(83, 68, 71);
+}
 
-.counter { margin-top:.5rem; text-align:center; font-size:.95rem; color:#f7e6ca; }
+.nav:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
 
+.counter {
+  text-align: center;
+  font-size: .95rem;
+  color: #f7e6ca;
+  margin-top: -50px;
+}

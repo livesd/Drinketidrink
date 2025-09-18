@@ -1,4 +1,3 @@
-// src/components/CocktailBrowser.tsx
 import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import FilterBar from "./FilterBar";
@@ -103,9 +102,7 @@ export default function CocktailBrowser() {
     <>
       <FilterBar onFiltersChange={setFilters} />
 
-      {(listQ.isLoading || detailQ.isLoading) && (
-        <p className="muted">Loading…</p>
-      )}
+
       {listQ.isError && !hasResults && (
         <p className="error">Could not fetch drinks.</p>
       )}

@@ -31,7 +31,6 @@ export default function Card({ drink, isFavorite, onToggleFavorite }: Props) {
       </header>
 
       <p className="meta">
-        <strong>Category:</strong> {drink.strCategory ?? "-"} ·{" "}
         <strong>Alcohol:</strong> {drink.strAlcoholic ?? "-"} ·{" "}
         <strong>Glass:</strong> {drink.strGlass ?? "-"}
       </p>
@@ -65,11 +64,7 @@ export default function Card({ drink, isFavorite, onToggleFavorite }: Props) {
             <p className="muted">No ingredients listed.</p>
           )}
 
-          {drink.strInstructions && (
-            <p className="instructions">
-              <strong>Instructions:</strong> {drink.strInstructions}
-            </p>
-          )}
+
         </div>
       </div>
     </article>
