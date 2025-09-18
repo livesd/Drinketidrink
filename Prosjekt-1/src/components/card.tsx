@@ -64,7 +64,8 @@ export default function Card({ drink, isFavorite, onToggleFavorite }: Props) {
             <p className="muted">No ingredients listed.</p>
           )}
 
-
+          <h3 className = "instructions">Instructions</h3>
+          <p>{drink.strInstructions ?? "No instructions listed."}</p>
         </div>
       </div>
     </article>
