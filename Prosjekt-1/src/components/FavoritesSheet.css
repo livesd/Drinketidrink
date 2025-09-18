@@ -1,12 +1,12 @@
-/* --- Posisjonsvariabler --- */
+/* position on page */
 :root {
   --dock-left: 16px;         /* avstand fra venstre kant av skjermen */
-  --dock-top: 120px;         /* vertikal posisjon (tilpass til din layout) */
+  --dock-top: 120px;         /* vertikal posisjon */
   --hamburger-size: 48px;    /* må matche .hamburger width/height */
   --dock-gap: 12px;          /* luft mellom knapp og ark */
 }
 
-/* Toppfelt beholder du som før – knappen blir uansett "fixed" */
+/* topbar */
 .topbar {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -16,9 +16,9 @@
   margin: 0 auto;
 }
 
-/* 🍔 Hamburger: alltid helt til venstre på viewport */
+/* hamburger menu */
 .hamburger {
-  position: fixed;                 /* <— endret fra relative */
+  position: fixed;              
   left: var(--dock-left);
   top: var(--dock-top);
   z-index: 60;
@@ -37,13 +37,16 @@
   align-items: center;     
   gap: 5.5px;    
 }
+
+/* styling of hamburger menu button */
 .hamburger .bar {
   width: 22px;
   height: 2px;
-  background: #1f2937;
+  background: #1f2937; 
   display: block;
-
 }
+
+/* amount of number badge on hamburger menu button */
 .hamburger .badge {
   position: absolute;
   top: -6px;
@@ -59,15 +62,16 @@
   text-align: center;
 }
 
-/* Bakgrunn for klikkområde utenfor arket */
+/* background for clicks in area outside the sheet */
 .sheet-backdrop {
   pointer-events: none;
 }
+
 .sheet-backdrop.open {
   pointer-events: auto;
 }
 
-/* 🗒️ Notatblokk: forankret rett til høyre for hamburgeren */
+/* favorites list */
 .favorites-sheet {
   position: fixed;
   top: calc(var(--dock-top) - 2px); 
@@ -76,6 +80,7 @@
   width: min(86vw, 360px);
   max-height: min(70vh, 520px);
   overflow: auto;
+  direction: rtl; /* switches the direction of the scrollbar */
   border-radius: 16px;
   background: transparent;
   transform: translateY(-8px) scale(.98);
@@ -83,16 +88,26 @@
   z-index: 50;
   padding: .75rem .75rem 1rem;
 
-  width: min(86vw, 300px);   /* var 360px – litt smalere */
+  width: min(86vw, 300px);  
   max-height: min(60vh, 480px);
-  padding: .5rem .5rem .75rem;  /* var .75/.75/1rem */
+  padding: .5rem .5rem .75rem;  
 }
 
-.sheet-header strong::after {
-  content: " ▼";      /* nedoverpil */
+/* children of the favorites sheet */
+.favorites-sheet > *{
+  direction: ltr; /* switches the direction of the close btn */
+}
+
+/* header of the favorites sheet */
+.sheet-header strong::before {
+  content: "🥂";  
   margin-left: .35rem;
   opacity: .75;
-  font-size: 0.9em;   /* tilpass størrelsen hvis du vil */
+  font-size: 0.9em; 
+}
+
+.sheet-header strong {
+  color:#f7e6ca;
 }
 
 .favorites-sheet.open {
@@ -105,13 +120,15 @@
   border-bottom: none;
   padding: .25rem 0 .25rem;
 }
+
+/* close buttion favorites */
 .close-btn {
   background: transparent;
   border: none;
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
-  color: #1f2937;
+  color: #f7e6ca;
 }
 
 .fav-list {
@@ -119,22 +136,31 @@
   margin: .25rem 0 0;
   padding: 0;
 }
+
 .fav-item {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 28px auto;
   gap: .5rem;
   align-items: center;
   padding: .25rem .25rem;
   border-bottom: transparent;
 }
+
+/* the elements in the fav list */
 .fav-item .link {
+  justify-self: start;
+  width: max-content;
   text-align: left;
   background: transparent;
   font: inherit;
   cursor: pointer;
   padding: .25rem .25rem;
-
+  color: #f7e6ca;
+  grid-column: 2/3;
+  grid-row: 1/2;
 }
+
+/* hovering over the fav list elements */
 .fav-item .link:hover {
   text-decoration: underline;
 }
@@ -145,12 +171,17 @@
   padding: 0;
   display: grid;
   place-items: center;
-  font-size: 0;             
+  font-size: 0; 
+  grid-column: 1/2;  
+  grid-row: 1/2;          
 }
 
+/* styling of fav item close button */
 .fav-item .remove::before {
   content: "×";
   font-size: 18px;
+  color: #f7e6ca;
+  font-weight: bolder;
 }
 
 .muted.small {
@@ -158,11 +189,11 @@
   font-size: .9rem;
 }
 
-/* Responsivt: på små skjermer kan vi la arket fylle bredden */
+/* responsive */
 @media (max-width: 640px) {
   :root {
     --dock-left: 8px;
-    --dock-top: 100px; /* juster om nødvendig */
+    --dock-top: 100px; 
     --dock-gap: 8px;
   }
   .favorites-sheet {
