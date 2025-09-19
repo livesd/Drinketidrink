@@ -1,0 +1,219 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Card component matches snapshot when favorite 1`] = `
+<article
+  aria-labelledby="drink-11000-title"
+  class="card drink-card"
+>
+  <header
+    class="card-header"
+  >
+    <h2
+      id="drink-11000-title"
+    >
+      Mojito
+    </h2>
+    <button
+      aria-label="Remove from favorites"
+      aria-pressed="true"
+      class="fav-btn"
+      title="Remove from favorites"
+      type="button"
+    >
+      ★
+    </button>
+  </header>
+  <p
+    class="meta"
+  >
+    <strong>
+      Alcohol:
+    </strong>
+     
+    Alcoholic
+     ·
+     
+    <strong>
+      Glass:
+    </strong>
+     
+    Highball glass
+  </p>
+  <div
+    class="media"
+  >
+    <img
+      alt="Mojito"
+      class="thumb"
+      decoding="async"
+      height="160"
+      loading="lazy"
+      src="https://example.com/mojito.jpg"
+      width="160"
+    />
+    <div>
+      <h3
+        class="sr-only"
+      >
+        Ingredients
+      </h3>
+      <table
+        aria-label="Ingredients"
+        class="nutrition"
+      >
+        <tbody>
+          <tr>
+            <th
+              scope="row"
+            />
+            <td>
+              2-3 oz
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            />
+            <td>
+              Juice of 1
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            />
+            <td>
+              2 tsp
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            />
+            <td>
+              2-4
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3
+        class="instructions"
+      >
+        Instructions
+      </h3>
+      <p>
+        Mix and serve.
+      </p>
+    </div>
+  </div>
+</article>
+`;
+
+exports[`Card component matches snapshot when not favorite 1`] = `
+<article
+  aria-labelledby="drink-11000-title"
+  class="card drink-card"
+>
+  <header
+    class="card-header"
+  >
+    <h2
+      id="drink-11000-title"
+    >
+      Mojito
+    </h2>
+    <button
+      aria-label="Add to favorites"
+      aria-pressed="false"
+      class="fav-btn"
+      title="Add to favorites"
+      type="button"
+    >
+      ☆
+    </button>
+  </header>
+  <p
+    class="meta"
+  >
+    <strong>
+      Alcohol:
+    </strong>
+     
+    Alcoholic
+     ·
+     
+    <strong>
+      Glass:
+    </strong>
+     
+    Highball glass
+  </p>
+  <div
+    class="media"
+  >
+    <img
+      alt="Mojito"
+      class="thumb"
+      decoding="async"
+      height="160"
+      loading="lazy"
+      src="https://example.com/mojito.jpg"
+      width="160"
+    />
+    <div>
+      <h3
+        class="sr-only"
+      >
+        Ingredients
+      </h3>
+      <table
+        aria-label="Ingredients"
+        class="nutrition"
+      >
+        <tbody>
+          <tr>
+            <th
+              scope="row"
+            />
+            <td>
+              2-3 oz
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            />
+            <td>
+              Juice of 1
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            />
+            <td>
+              2 tsp
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            />
+            <td>
+              2-4
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3
+        class="instructions"
+      >
+        Instructions
+      </h3>
+      <p>
+        Mix and serve.
+      </p>
+    </div>
+  </div>
+</article>
+`;
