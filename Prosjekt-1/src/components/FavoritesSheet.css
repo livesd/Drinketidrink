@@ -105,7 +105,8 @@
   z-index: 1;
   color: #f7e6ca;
   background-color: rgb(83, 68, 71);
-  display: inline-block;
+  display: block;
+  direction: ltr;
   padding-left: 1rem;
 }
 
