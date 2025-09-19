@@ -7,10 +7,14 @@
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   align-items: flex-end;
-  width: 94vw;
+  width: 90vw;
   max-width: 700px;
   margin: 1rem auto;
   height: auto;
+}
+
+.topbar .searchbar {
+  grid-column: 1 / -1;
 }
 
 .topbar .searchbar {

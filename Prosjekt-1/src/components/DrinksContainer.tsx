@@ -70,16 +70,16 @@ export default function CocktailBrowser() {
   });
 
   const currentDrink: Drink | null = currentLite
-    ? detailQ.data ?? fromLite(currentLite)
+    ? (detailQ.data ?? fromLite(currentLite))
     : null;
 
   const next = useCallback(
     () => hasResults && setIndex((i) => Math.min(i + 1, items.length - 1)),
-    [hasResults, items.length]
+    [hasResults, items.length],
   );
   const prev = useCallback(
     () => hasResults && setIndex((i) => Math.max(i - 1, 0)),
-    [hasResults]
+    [hasResults],
   );
 
   useEffect(() => {
@@ -92,20 +92,23 @@ export default function CocktailBrowser() {
   }, [next, prev]);
 
   // Persistent favorites
-  const [favs, toggleFav] = useLocalStorage<{ id: string; name: string }[]>("favorites", []);
+  const [favs, toggleFav] = useLocalStorage<{ id: string; name: string }[]>(
+    "favorites",
+    [],
+  );
 
   const jumpTo = useCallback(
     (id: string) => {
       const i = items.findIndex((d) => d.idDrink === id);
       if (i >= 0) setIndex(i);
     },
-    [items]
+    [items],
   );
 
   const [openFavs, setOpenFavs] = useState(false);
   const openButtonLabel = useMemo(
     () => (openFavs ? "Lukk favoritter" : "Åpne favoritter"),
-    [openFavs]
+    [openFavs],
   );
 
   return (
@@ -141,7 +144,7 @@ export default function CocktailBrowser() {
           toggleFav((prev) =>
             prev.some((fav) => fav.id === id)
               ? prev.filter((fav) => fav.id !== id)
-              : [...prev, { id, name }]
+              : [...prev, { id, name }],
           )
         }
       />
@@ -169,7 +172,13 @@ export default function CocktailBrowser() {
                     toggleFav((prev) =>
                       prev.some((fav) => fav.id === currentDrink.idDrink)
                         ? prev.filter((fav) => fav.id !== currentDrink.idDrink)
-                        : [...prev, { id: currentDrink.idDrink, name: currentDrink.strDrink }]
+                        : [
+                            ...prev,
+                            {
+                              id: currentDrink.idDrink,
+                              name: currentDrink.strDrink,
+                            },
+                          ],
                     )
                   }
                 />

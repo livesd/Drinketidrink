@@ -1,6 +1,5 @@
-import './App.css'
+import "./App.css";
 import DrinksContainer from "./components/DrinksContainer";
-
 
 function App() {
   return (
@@ -8,7 +7,7 @@ function App() {
       <h1 className="title">DRINKETIDRINK</h1>
       <DrinksContainer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
