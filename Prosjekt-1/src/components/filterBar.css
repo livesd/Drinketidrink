@@ -13,14 +13,6 @@
   height: auto;
 }
 
-.topbar .searchbar {
-  grid-column: 1 / -1;
-}
-
-.topbar .searchbar {
-  grid-column: 1 / -1;
-}
-
 .searchbar label {
   display: flex;
   flex-direction: column;
@@ -30,8 +22,6 @@
   min-width: 200px;
 
 }
-
-
 
 .searchbar input,
 .searchbar select {
@@ -46,18 +36,6 @@
 }
 
 
-
-.searchbar input:focus,
-.searchbar select:focus {
-  outline: none;
-  border-color: #242424;
-  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
-}
-
-.filter-panel input::placeholder {
-  color: #9ca3af;
-  font-weight: 400;
-}
 
 @media (max-width: 480px) {
   .searchbar {
@@ -78,8 +56,4 @@
     font-size: 0.9rem;
     padding: 0.5rem 0.9rem;
   }
-}
-
-.bar {
-  align-items: center;
 }
