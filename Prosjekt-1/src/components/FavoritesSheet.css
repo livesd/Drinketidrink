@@ -1,0 +1,202 @@
+:root {
+  --dock-left: 16px;
+  --dock-top: 120px;
+  --hamburger-size: 48px;
+  --dock-gap: 12px;
+}
+
+/* hamburger menu */
+.hamburger {
+  position: fixed;
+  left: var(--dock-left);
+  top: var(--dock-top);
+  z-index: 60;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #d1d5db;
+  background: #f7e6ca;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5.5px;
+}
+
+/* the bars inside the menu button */
+.hamburger .bar {
+  width: 22px;
+  height: 2px;
+  background: #1f2937;
+  display: block;
+}
+
+/* the badge indicating the number of favorites */
+.hamburger .badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9999px;
+  background: #1f2937;
+  color: #f7e6ca;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+}
+
+/* background for clicks in area outside the sheet */
+.sheet-backdrop {
+  pointer-events: none;
+}
+
+.sheet-backdrop.open {
+  pointer-events: auto;
+}
+
+/* favorites list */
+.favorites-sheet {
+  position: fixed;
+  top: calc(var(--dock-top) - 2px);
+  left: calc(var(--dock-left) + var(--hamburger-size) + var(--dock-gap));
+  right: auto;
+  width: min(70vw, 240px);
+  max-height: min(60vh, 480px);
+  overflow: auto;
+  direction: rtl;
+  border-radius: 16px;
+  background: transparent;
+  background: rgb(83, 68, 71);
+  transform: translateY(-8px) scale(.98);
+  opacity: 0;
+  z-index: 50;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* changes the direction back to ltr, so the scrollbar is on the left side of the list */
+.favorites-sheet>* {
+  direction: ltr;
+}
+
+/* the symbol in the header of favorites list */
+.sheet-header strong::before {
+  content: "🥂";
+  margin-left: .35rem;
+  opacity: .75;
+  font-size: 0.9em;
+}
+
+.favorites-sheet.open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* header of the favorites list */
+.sheet-header {
+  background: transparent;
+  border-bottom: none;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: #f7e6ca;
+  background-color: rgb(83, 68, 71);
+  display: block;
+  direction: ltr;
+  padding-left: 1rem;
+}
+
+/* close button of fav list */
+.close-btn {
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: #f7e6ca;
+}
+
+/* favorites list */
+.fav-list {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+}
+
+/* item in the favorites list, consists of remove button and drink */
+.fav-item {
+  display: grid;
+  grid-template-columns: 28px auto;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.25rem 0.25rem;
+  border-bottom: transparent;
+}
+
+/* the drink of the favorite item */
+.fav-item .link {
+  justify-self: start;
+  width: max-content;
+  text-align: left;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  padding: 0.25rem 0.25rem;
+  color: #f7e6ca;
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+
+.fav-item .link:hover {
+  text-decoration: underline;
+}
+
+/* the remove button of the favorite item */
+.fav-item .remove {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0;
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.fav-item .remove::before {
+  content: "×";
+  font-size: 18px;
+  color: #f7e6ca;
+  font-weight: bolder;
+}
+
+.muted.small {
+  color: #374151;
+  font-size: .9rem;
+}
+
+/* responsive */
+@media (max-width: 640px) {
+  :root {
+    --dock-left: 0;
+    --dock-top: 0;
+    --dock-gap: 0;
+  }
+
+  .favorites-sheet {
+    top: 0;
+    width: 100vw;
+    left: 0;
+    max-width: 100vw;
+    height: auto;
+    max-height: 60vh;
+    border-radius: 0;
+    transform: translateY(-100%);
+  }
+
+  .favorites-sheet.open {
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,73 @@
+import type { Drink } from "../api/cocktails";
+import { toIngredients } from "../api/cocktails";
+import "./card.css";
+
+type Props = {
+  drink: Drink;
+  isFavorite: boolean;
+  onToggleFavorite: (id: string, name: string) => void;
+};
+
+export default function Card({ drink, isFavorite, onToggleFavorite }: Props) {
+  const ingredients = toIngredients(drink);
+
+  return (
+    <article
+      className="card drink-card"
+      aria-labelledby={`drink-${drink.idDrink}-title`}
+    >
+      <header className="card-header">
+        <h2 id={`drink-${drink.idDrink}-title`}>{drink.strDrink}</h2>
+        <button
+          type="button"
+          className="fav-btn"
+          aria-pressed={isFavorite}
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          onClick={() => onToggleFavorite(drink.idDrink, drink.strDrink)}
+        >
+          {isFavorite ? "★" : "☆"}
+        </button>
+      </header>
+
+      <p className="meta">
+        <strong>Alcohol:</strong> {drink.strAlcoholic ?? "-"} ·{" "}
+        <strong>Glass:</strong> {drink.strGlass ?? "-"}
+      </p>
+
+      <div className="media">
+        <img
+          className="thumb"
+          src={drink.strDrinkThumb}
+          alt={drink.strDrink}
+          width={160}
+          height={160}
+          loading="lazy"
+          decoding="async"
+        />
+
+        <div>
+          <h3>Ingredients</h3>
+
+          {ingredients.length > 0 ? (
+            <table className="nutrition" aria-label="Ingredients">
+              <tbody>
+                {ingredients.map((row, i) => (
+                  <tr key={`${row.ingredient}-${i}`}>
+                    <th scope="row">{row.ingredient}</th>
+                    <td>{row.measure ?? ""}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p>No ingredients listed.</p>
+          )}
+
+          <h3 className="instructions">Instructions</h3>
+          <p>{drink.strInstructions ?? "No instructions listed."}</p>
+        </div>
+      </div>
+    </article>
+  );
+}

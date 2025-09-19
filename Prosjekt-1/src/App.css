@@ -1,9 +1,16 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
+
+@media (min-width: 640px) {
+  #root {
+    padding: 2rem;
+  }
+}
+
 
 .logo {
   height: 6em;
@@ -11,9 +18,16 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
+.logo {
+  height: auto;
+  max-width: 80%;
+}
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -22,6 +36,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -39,4 +54,14 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.title {
+  text-align: center;
+  margin: 2px auto;
+  color: #f7e6ca;
+  transform: none;
+  font-size: 6vw;
+
+
 }
