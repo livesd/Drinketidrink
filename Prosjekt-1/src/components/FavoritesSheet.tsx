@@ -1,4 +1,3 @@
-// src/components/FavoritesSheet.tsx
 import { useEffect, useRef } from "react";
 
 type Fav = { id: string; name: string };
