@@ -31,11 +31,15 @@ export default function FavoritesSheet({
     return () => window.removeEventListener("keydown", h);
   }, [onClose]);
 
-  // Lukk ved klikk utenfor
   useEffect(() => {
     const h = (e: MouseEvent) => {
       if (!open) return;
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+      const t = e.target as HTMLElement;
+
+      if (ref.current?.contains(t)) return;
+      if (t.closest(".hamburger")) return;
+
+      onClose();
     };
     document.addEventListener("mousedown", h);
     return () => document.removeEventListener("mousedown", h);

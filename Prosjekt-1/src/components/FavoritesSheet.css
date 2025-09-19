@@ -1,20 +1,18 @@
-/* position on page */
 :root {
-  --dock-left: 16px;         /* avstand fra venstre kant av skjermen */
-  --dock-top: 120px;         /* vertikal posisjon */
-  --hamburger-size: 48px;    /* må matche .hamburger width/height */
-  --dock-gap: 12px;          /* luft mellom knapp og ark */
+  --dock-left: 16px;      
+  --dock-top: 120px;       
+  --hamburger-size: 48px;    
+  --dock-gap: 12px;          
 }
 
-/* topbar */
-.topbar {
+/* .topbar {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: .75rem;
   align-items: center;
   max-width: 980px;
   margin: 0 auto;
-}
+} */
 
 /* hamburger menu */
 .hamburger {
@@ -22,7 +20,6 @@
   left: var(--dock-left);
   top: var(--dock-top);
   z-index: 60;
-
   width: 48px;
   height: 48px;
   border: 1px solid #d1d5db;
@@ -30,7 +27,6 @@
   border-radius: 12px;
   cursor: pointer;
   box-shadow: 0 6px 14px rgba(0,0,0,.08);
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,7 +34,6 @@
   gap: 5.5px;    
 }
 
-/* styling of hamburger menu button */
 .hamburger .bar {
   width: 22px;
   height: 2px;
@@ -46,7 +41,6 @@
   display: block;
 }
 
-/* amount of number badge on hamburger menu button */
 .hamburger .badge {
   position: absolute;
   top: -6px;
@@ -63,13 +57,13 @@
 }
 
 /* background for clicks in area outside the sheet */
-.sheet-backdrop {
+/* .sheet-backdrop {
   pointer-events: none;
 }
 
 .sheet-backdrop.open {
   pointer-events: auto;
-}
+} */
 
 /* favorites list */
 .favorites-sheet {
@@ -80,34 +74,26 @@
   width: min(86vw, 360px);
   max-height: min(70vh, 520px);
   overflow: auto;
-  direction: rtl; /* switches the direction of the scrollbar */
+  direction: rtl; 
   border-radius: 16px;
   background: transparent;
   transform: translateY(-8px) scale(.98);
   opacity: 0;
   z-index: 50;
-  padding: .75rem .75rem 1rem;
 
   width: min(86vw, 300px);  
   max-height: min(60vh, 480px);
-  padding: .5rem .5rem .75rem;  
 }
 
-/* children of the favorites sheet */
 .favorites-sheet > *{
-  direction: ltr; /* switches the direction of the close btn */
+  direction: ltr; 
 }
 
-/* header of the favorites sheet */
 .sheet-header strong::before {
   content: "🥂";  
   margin-left: .35rem;
   opacity: .75;
   font-size: 0.9em; 
-}
-
-.sheet-header strong {
-  color:#f7e6ca;
 }
 
 .favorites-sheet.open {
@@ -118,13 +104,15 @@
 .sheet-header {
   background: transparent;
   border-bottom: none;
-  padding: .25rem 0 .25rem;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: #f7e6ca;
+  background-color: rgb(83, 68, 71);
 }
 
-/* close buttion favorites */
 .close-btn {
-  background: transparent;
-  border: none;
   font-size: 22px;
   line-height: 1;
   cursor: pointer;
@@ -146,7 +134,6 @@
   border-bottom: transparent;
 }
 
-/* the elements in the fav list */
 .fav-item .link {
   justify-self: start;
   width: max-content;
@@ -160,7 +147,6 @@
   grid-row: 1/2;
 }
 
-/* hovering over the fav list elements */
 .fav-item .link:hover {
   text-decoration: underline;
 }
@@ -176,17 +162,11 @@
   grid-row: 1/2;          
 }
 
-/* styling of fav item close button */
 .fav-item .remove::before {
   content: "×";
   font-size: 18px;
   color: #f7e6ca;
   font-weight: bolder;
-}
-
-.muted.small {
-  color: #374151;
-  font-size: .9rem;
 }
 
 /* responsive */
@@ -195,10 +175,5 @@
     --dock-left: 8px;
     --dock-top: 100px; 
     --dock-gap: 8px;
-  }
-  .favorites-sheet {
-    left: calc(var(--dock-left) + var(--hamburger-size) + var(--dock-gap));
-    width: calc(100vw - var(--dock-left) - var(--hamburger-size) - 2*var(--dock-gap));
-    max-width: none;
   }
 }
