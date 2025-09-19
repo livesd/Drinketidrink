@@ -10,6 +10,7 @@
   min-height: 400px;
   text-align: left;
   overflow-y: auto;
+  max-height: 400px;
 }
 
 .card-header {
