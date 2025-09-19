@@ -2,15 +2,19 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  background-color: #f7e6ca;
-  padding: 1rem 1.5rem;
+  background-color: #F7E6CA;
+  padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   align-items: flex-end;
-  max-width: 600px;
-  width: min(94vw, 600px);
+  width: 90vw;
+  max-width: 700px;
   margin: 1rem auto;
-  height: 60px;
+  height: auto;
+}
+
+.topbar .searchbar {
+  grid-column: 1 / -1;
 }
 
 .topbar .searchbar {
@@ -23,7 +27,11 @@
   font-weight: 500;
   font-size: 0.9rem;
   flex: 1 1 45%;
+  min-width: 200px;
+
 }
+
+
 
 .searchbar input,
 .searchbar select {
@@ -37,6 +45,8 @@
   background-color: #ffffff;
 }
 
+
+
 .searchbar input:focus,
 .searchbar select:focus {
   outline: none;
@@ -47,6 +57,27 @@
 .filter-panel input::placeholder {
   color: #9ca3af;
   font-weight: 400;
+}
+
+@media (max-width: 480px) {
+  .searchbar {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .searchbar label {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .searchbar input,
+  .searchbar select {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.9rem;
+  }
 }
 
 .bar {
