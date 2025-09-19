@@ -1,4 +1,3 @@
-// src/components/CocktailBrowser.tsx
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import FilterBar from "./FilterBar";
