@@ -57,13 +57,13 @@
 }
 
 /* background for clicks in area outside the sheet */
-/* .sheet-backdrop {
+.sheet-backdrop {
   pointer-events: none;
 }
 
 .sheet-backdrop.open {
   pointer-events: auto;
-} */
+} 
 
 /* favorites list */
 .favorites-sheet {
@@ -168,6 +168,8 @@
   color: #f7e6ca;
   font-weight: bolder;
 }
+
+.muted.small { color: #374151; font-size: .9rem; }
 
 /* responsive */
 @media (max-width: 640px) {
