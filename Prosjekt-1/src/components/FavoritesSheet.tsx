@@ -6,9 +6,9 @@ type Props = {
   id?: string;
   open: boolean;
   favorites: Fav[];
-  onClose: () => void;
-  onSelect: (id: string) => void; // hopp til kort i lista
-  onToggleFavorite: (id: string, name: string) => void;
+  onClose: () => void; // close handler
+  onSelect: (id: string) => void; // favorite selector
+  onToggleFavorite: (id: string, name: string) => void; // favorite add remove handler
 };
 
 export default function FavoritesSheet({
@@ -21,7 +21,7 @@ export default function FavoritesSheet({
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
-  // Lukk ved ESC
+  // close favorites list on escape key press
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -30,6 +30,7 @@ export default function FavoritesSheet({
     return () => window.removeEventListener("keydown", h);
   }, [onClose]);
 
+  // close favorites list on click outside of the list
   useEffect(() => {
     const h = (e: MouseEvent) => {
       if (!open) return;
@@ -55,7 +56,7 @@ export default function FavoritesSheet({
         aria-label="Favorites notepad"
       >
         <header className="sheet-header">
-          <strong>Favorites</strong>
+          <strong>Favorites</strong> 
           <button className="close-btn" onClick={onClose} aria-label="Close">
             ×
           </button>

@@ -35,16 +35,13 @@ The core functionality of the project is implemented in the `src` folder, which 
 - **api**: Contains API calls and methods for data fetching.
   [coctails.ts](src/api/cocktails.ts)
 - **assets**: Contains images used on the website
-- **core**: Contains logic for adding and saving favorites
-  [Favorites.tsx](src/core/Favorites.tsx)
-  [useFavorites.ts](src/core/useFavorites.ts)
+- **core**: Contains logic for the webpage
+  [DrinksContainer.tsx] fetches and filters drinks, pages through results, shows    details, and saves favorites.
 - **components**: Core logic and styling for the different components displayed on the homepage.
   [Card.tsx](src/components/card.tsx)
   [card.css](src/components/Card.css)
   [FilterBar.tsx](src/components/FilterBar.tsx)
   [filterBar.css](src/components/filterBar.css)
-  [Swipe.tsx](src/components/Swipe.tsx)
-  [swipe.css](src/components/swipe.css)
 - **hooks**: Custom hooks for managing user choices, such as filters and favorites.
   [useLocalStorage.ts](src/hooks/useLocalStorage.ts)
   [useSessionStorage.ts](src/hooks/useSessionStorage.ts)

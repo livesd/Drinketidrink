@@ -5,15 +5,6 @@
   --dock-gap: 12px;
 }
 
-/* .topbar {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: .75rem;
-  align-items: center;
-  max-width: 980px;
-  margin: 0 auto;
-} */
-
 /* hamburger menu */
 .hamburger {
   position: fixed;
@@ -26,7 +17,6 @@
   background: #f7e6ca;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
@@ -35,6 +25,7 @@
   gap: 5.5px;
 }
 
+/* the bars inside the menu button */
 .hamburger .bar {
   width: 22px;
   height: 2px;
@@ -42,6 +33,7 @@
   display: block;
 }
 
+/* the badge indicating the number of favorites */
 .hamburger .badge {
   position: absolute;
   top: -6px;
@@ -66,16 +58,12 @@
   pointer-events: auto;
 }
 
-
-
 /* favorites list */
 .favorites-sheet {
   position: fixed;
   top: calc(var(--dock-top) - 2px);
   left: calc(var(--dock-left) + var(--hamburger-size) + var(--dock-gap));
   right: auto;
-  width: min(86vw, 360px);
-  max-height: min(70vh, 520px);
   width: min(70vw, 240px);
   max-height: min(60vh, 480px);
   overflow: auto;
@@ -87,21 +75,18 @@
   opacity: 0;
   z-index: 50;
   transition: transform 0.3s ease, opacity 0.3s ease;
-
 }
 
+/* changes the direction back to ltr, so the scrollbar is on the left side of the list */
 .favorites-sheet>* {
   direction: ltr;
 }
 
+/* the symbol in the header of favorites list */
 .sheet-header strong::before {
   content: "🥂";
   margin-left: .35rem;
   opacity: .75;
-  font-size: 0.9em;
-  content: "🥂";
-  margin-left: 0.35rem;
-  opacity: 0.75;
   font-size: 0.9em;
 }
 
@@ -110,6 +95,7 @@
   opacity: 1;
 }
 
+/* header of the favorites list */
 .sheet-header {
   background: transparent;
   border-bottom: none;
@@ -119,12 +105,12 @@
   z-index: 1;
   color: #f7e6ca;
   background-color: rgb(83, 68, 71);
-  display: inline-block;
+  display: block;
+  direction: ltr;
   padding-left: 1rem;
 }
 
-
-
+/* close button of fav list */
 .close-btn {
   font-size: 22px;
   line-height: 1;
@@ -132,12 +118,14 @@
   color: #f7e6ca;
 }
 
+/* favorites list */
 .fav-list {
   list-style: none;
   margin: 0.25rem 0 0;
   padding: 0;
 }
 
+/* item in the favorites list, consists of remove button and drink */
 .fav-item {
   display: grid;
   grid-template-columns: 28px auto;
@@ -147,6 +135,7 @@
   border-bottom: transparent;
 }
 
+/* the drink of the favorite item */
 .fav-item .link {
   justify-self: start;
   width: max-content;
@@ -164,6 +153,7 @@
   text-decoration: underline;
 }
 
+/* the remove button of the favorite item */
 .fav-item .remove {
   width: 28px;
   height: 28px;
@@ -187,17 +177,9 @@
   font-size: .9rem;
 }
 
-.muted.small {
-  color: #374151;
-  font-size: 0.9rem;
-}
-
 /* responsive */
 @media (max-width: 640px) {
   :root {
-    --dock-left: 8px;
-    --dock-top: 100px;
-    --dock-gap: 8px;
     --dock-left: 0;
     --dock-top: 0;
     --dock-gap: 0;
@@ -217,8 +199,4 @@
   .favorites-sheet.open {
     transform: translateY(0);
   }
-
-
-
-
 }

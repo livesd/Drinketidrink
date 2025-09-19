@@ -1,5 +1,5 @@
 import "./App.css";
-import DrinksContainer from "./components/DrinksContainer";
+import DrinksContainer from "../src/core/DrinksContainer";
 
 function App() {
   return (

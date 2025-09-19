@@ -47,7 +47,7 @@ export default function Card({ drink, isFavorite, onToggleFavorite }: Props) {
         />
 
         <div>
-          <h3 className="sr-only">Ingredients</h3>
+          <h3>Ingredients</h3>
 
           {ingredients.length > 0 ? (
             <table className="nutrition" aria-label="Ingredients">
@@ -61,7 +61,7 @@ export default function Card({ drink, isFavorite, onToggleFavorite }: Props) {
               </tbody>
             </table>
           ) : (
-            <p className="muted">No ingredients listed.</p>
+            <p>No ingredients listed.</p>
           )}
 
           <h3 className="instructions">Instructions</h3>

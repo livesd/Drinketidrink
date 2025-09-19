@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import FilterBar from "./FilterBar";
-import Card from "./card";
-import FavoritesSheet from "./FavoritesSheet";
+import FilterBar from "../components/FilterBar";
+import Card from "../components/card";
+import FavoritesSheet from "../components/FavoritesSheet";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import "./FavoritesSheet.css";
+import "../components/FavoritesSheet.css";
 
 import {
   searchByName,
@@ -16,6 +16,7 @@ import {
   type DrinkLite,
 } from "../api/cocktails";
 
+// normalising strings for stable comparisons
 const norm = (s: string | null | undefined) =>
   (s ?? "").toLowerCase().replace(/[_\s]+/g, "");
 
@@ -33,7 +34,7 @@ export default function CocktailBrowser() {
 
   const listQ = useQuery({
     queryKey: usingFilters
-      ? ["drinks-lite", "filters", filters.qName, filters.alc]
+      ? ["drinks-lite", "filters", filters.qName, filters.alc] //identifies the type of data depends on the filter
       : ["drinks-lite", "initial"],
     staleTime: 10 * 60 * 1000,
     refetchOnWindowFocus: false,
@@ -47,16 +48,17 @@ export default function CocktailBrowser() {
         return narrowed.map(toLite);
       }
       if (filters.alc.trim()) {
-        return filterByAlcoholic(filters.alc);
+        // If only alcoholic filter is set
+        return filterByAlcoholic(filters.alc); // Fetch by alcoholic type
       }
       const deck = await getInitialDeck();
       return deck.map(toLite);
     },
   });
 
-  const items = listQ.data ?? [];
+  const items = useMemo(() => listQ.data ?? [], [listQ.data]); // Memorising the current list or fallback to empty
   const [index, setIndex] = useState(0);
-  useEffect(() => setIndex(0), [items.length]);
+  useEffect(() => setIndex(0), [items.length]); // Reset to first card whenever the result set changes
 
   const hasResults = items.length > 0;
   const currentLite = hasResults ? items[index] : null;
@@ -69,19 +71,22 @@ export default function CocktailBrowser() {
     queryFn: async () => (currentLite ? lookupById(currentLite.idDrink) : null),
   });
 
-  const currentDrink: Drink | null = currentLite
+  const currentDrink: Drink | null = currentLite // chooses what to render in the card
     ? (detailQ.data ?? fromLite(currentLite))
     : null;
 
   const next = useCallback(
+    //move to next item
     () => hasResults && setIndex((i) => Math.min(i + 1, items.length - 1)),
     [hasResults, items.length],
   );
   const prev = useCallback(
+    //move to prevous
     () => hasResults && setIndex((i) => Math.max(i - 1, 0)),
     [hasResults],
   );
 
+  // keyboard functions
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") next();
@@ -98,6 +103,7 @@ export default function CocktailBrowser() {
   );
 
   const jumpTo = useCallback(
+    // Jump to a specific drink by id, which is used by favorites sheet
     (id: string) => {
       const i = items.findIndex((d) => d.idDrink === id);
       if (i >= 0) setIndex(i);
@@ -105,7 +111,7 @@ export default function CocktailBrowser() {
     [items],
   );
 
-  const [openFavs, setOpenFavs] = useState(false);
+  const [openFavs, setOpenFavs] = useState(false); //tells if the favorite sheet is open or not
   const openButtonLabel = useMemo(
     () => (openFavs ? "Lukk favoritter" : "Åpne favoritter"),
     [openFavs],
