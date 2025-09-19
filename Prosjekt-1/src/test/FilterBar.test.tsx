@@ -6,15 +6,13 @@ import FilterPanel from "../components/FilterBar";
 
 // Mock the hooks and API functions
 vi.mock("../hooks/useSessionStorage", () => ({
-  useSessionStorage: vi.fn((_: string, initial: string) => [initial, vi.fn()])
+  useSessionStorage: vi.fn((_: string, initial: string) => [initial, vi.fn()]),
 }));
 
 vi.mock("../api/cocktails", () => ({
-  getAlcoholicOptions: vi.fn(() => Promise.resolve([
-    "Alcoholic",
-    "Non alcoholic", 
-    "Optional alcohol"
-  ]))
+  getAlcoholicOptions: vi.fn(() =>
+    Promise.resolve(["Alcoholic", "Non alcoholic", "Optional alcohol"]),
+  ),
 }));
 
 // Mock useQuery - define the mock function inside the factory
@@ -26,7 +24,7 @@ vi.mock("@tanstack/react-query", async () => {
       data: ["Alcoholic", "Non alcoholic", "Optional alcohol"],
       isLoading: false,
       isError: false,
-    }))
+    })),
   };
 });
 
@@ -38,7 +36,7 @@ const createWrapper = () => {
       },
     },
   });
-  
+
   return ({ children }: { children: React.ReactNode }) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
@@ -46,12 +44,12 @@ const createWrapper = () => {
 
 test("FilterPanel matches snapshot with default state", () => {
   const mockOnFiltersChange = vi.fn();
-  
+
   const { container } = render(
     <FilterPanel onFiltersChange={mockOnFiltersChange} />,
-    { wrapper: createWrapper() }
+    { wrapper: createWrapper() },
   );
-  
+
   expect(container.firstChild).toMatchSnapshot();
 });
 
@@ -65,12 +63,12 @@ test("FilterPanel matches snapshot with loading state", async () => {
   } as any);
 
   const mockOnFiltersChange = vi.fn();
-  
+
   const { container } = render(
     <FilterPanel onFiltersChange={mockOnFiltersChange} />,
-    { wrapper: createWrapper() }
+    { wrapper: createWrapper() },
   );
-  
+
   expect(container.firstChild).toMatchSnapshot();
 });
 
@@ -84,11 +82,11 @@ test("FilterPanel matches snapshot with error state", async () => {
   } as any);
 
   const mockOnFiltersChange = vi.fn();
-  
+
   const { container } = render(
     <FilterPanel onFiltersChange={mockOnFiltersChange} />,
-    { wrapper: createWrapper() }
+    { wrapper: createWrapper() },
   );
-  
+
   expect(container.firstChild).toMatchSnapshot();
 });

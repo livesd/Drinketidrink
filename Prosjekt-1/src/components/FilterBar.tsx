@@ -4,7 +4,6 @@ import { getAlcoholicOptions } from "../api/cocktails";
 import { useSessionStorage } from "../hooks/useSessionStorage";
 import "./filterBar.css";
 
-
 type FilterPanelProps = {
   onFiltersChange: (filters: { qName: string; alc: string }) => void;
 };
@@ -20,7 +19,10 @@ export default function FilterPanel({ onFiltersChange }: FilterPanelProps) {
 
   useEffect(() => {
     if (debounceRef.current) window.clearTimeout(debounceRef.current);
-    debounceRef.current = window.setTimeout(() => setQNameDebounced(qName), 350);
+    debounceRef.current = window.setTimeout(
+      () => setQNameDebounced(qName),
+      350,
+    );
     return () => {
       if (debounceRef.current) window.clearTimeout(debounceRef.current);
     };
@@ -46,7 +48,6 @@ export default function FilterPanel({ onFiltersChange }: FilterPanelProps) {
     >
       <label>
         Name of cocktail
-
         <input
           type="search"
           placeholder="Search for a drink..."
