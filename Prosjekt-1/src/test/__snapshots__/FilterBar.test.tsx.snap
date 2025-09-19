@@ -1,0 +1,94 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FilterPanel matches snapshot with default state 1`] = `
+<form
+  aria-label="Filter cocktails"
+  class="searchbar"
+>
+  <label>
+    Name of cocktail
+    <input
+      placeholder="Search for a drink..."
+      type="search"
+      value=""
+    />
+  </label>
+  <label>
+    Alcohol
+    <select>
+      <option
+        value=""
+      >
+        All
+      </option>
+      <option
+        value="Alcoholic"
+      >
+        Alcoholic
+      </option>
+      <option
+        value="Non alcoholic"
+      >
+        Non alcoholic
+      </option>
+      <option
+        value="Optional alcohol"
+      >
+        Optional alcohol
+      </option>
+    </select>
+  </label>
+</form>
+`;
+
+exports[`FilterPanel matches snapshot with error state 1`] = `
+<form
+  aria-label="Filter cocktails"
+  class="searchbar"
+>
+  <label>
+    Name of cocktail
+    <input
+      placeholder="Search for a drink..."
+      type="search"
+      value=""
+    />
+  </label>
+  <label>
+    Alcohol
+    <select>
+      <option
+        value=""
+      >
+        All
+      </option>
+    </select>
+  </label>
+</form>
+`;
+
+exports[`FilterPanel matches snapshot with loading state 1`] = `
+<form
+  aria-label="Filter cocktails"
+  class="searchbar"
+>
+  <label>
+    Name of cocktail
+    <input
+      placeholder="Search for a drink..."
+      type="search"
+      value=""
+    />
+  </label>
+  <label>
+    Alcohol
+    <select>
+      <option
+        value=""
+      >
+        All
+      </option>
+    </select>
+  </label>
+</form>
+`;
