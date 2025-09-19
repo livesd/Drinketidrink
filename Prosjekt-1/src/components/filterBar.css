@@ -13,7 +13,9 @@
   height: auto;
 }
 
-
+.topbar .searchbar {
+  grid-column: 1 / -1;
+}
 
 .searchbar label {
   display: flex;
@@ -72,4 +74,8 @@
     font-size: 0.9rem;
     padding: 0.5rem 0.9rem;
   }
+}
+
+.bar {
+  align-items: center;
 }
