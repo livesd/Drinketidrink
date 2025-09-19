@@ -21,7 +21,7 @@ describe("FavoritesSheet", () => {
         onClose={onClose}
         onSelect={onSelect}
         onToggleFavorite={onToggle}
-      />
+      />,
     );
 
     expect(screen.getByText(/no favorites yet/i)).toBeInTheDocument();
@@ -36,7 +36,7 @@ describe("FavoritesSheet", () => {
         onClose={vi.fn()}
         onSelect={vi.fn()}
         onToggleFavorite={vi.fn()}
-      />
+      />,
     );
 
     const dialog = screen.getByRole("dialog", {
@@ -58,7 +58,7 @@ describe("FavoritesSheet", () => {
         onClose={vi.fn()}
         onSelect={vi.fn()}
         onToggleFavorite={vi.fn()}
-      />
+      />,
     );
 
     // When closed, the sheet is inside aria-hidden backdrop, so include hidden nodes
@@ -82,7 +82,7 @@ describe("FavoritesSheet", () => {
         onClose={onClose}
         onSelect={vi.fn()}
         onToggleFavorite={vi.fn()}
-      />
+      />,
     );
 
     fireEvent.keyDown(window, { key: "Escape" });
@@ -98,7 +98,7 @@ describe("FavoritesSheet", () => {
         onClose={onClose}
         onSelect={vi.fn()}
         onToggleFavorite={vi.fn()}
-      />
+      />,
     );
 
     fireEvent.mouseDown(document.body);
@@ -114,7 +114,7 @@ describe("FavoritesSheet", () => {
         onClose={onClose}
         onSelect={vi.fn()}
         onToggleFavorite={vi.fn()}
-      />
+      />,
     );
 
     const dialog = screen.getByRole("dialog", { name: /favorites notepad/i });
@@ -136,7 +136,7 @@ describe("FavoritesSheet", () => {
         onClose={onClose}
         onSelect={vi.fn()}
         onToggleFavorite={vi.fn()}
-      />
+      />,
     );
 
     fireEvent.mouseDown(hamburger);
@@ -155,7 +155,7 @@ describe("FavoritesSheet", () => {
         onClose={onClose}
         onSelect={onSelect}
         onToggleFavorite={vi.fn()}
-      />
+      />,
     );
 
     fireEvent.click(screen.getByRole("button", { name: "Mojito" }));
@@ -172,11 +172,11 @@ describe("FavoritesSheet", () => {
         onClose={vi.fn()}
         onSelect={vi.fn()}
         onToggleFavorite={onToggle}
-      />
+      />,
     );
 
     fireEvent.click(
-      screen.getByRole("button", { name: /remove mojito from favorites/i })
+      screen.getByRole("button", { name: /remove mojito from favorites/i }),
     );
     expect(onToggle).toHaveBeenCalledWith("11000", "Mojito");
   });
@@ -190,7 +190,7 @@ describe("FavoritesSheet", () => {
         onClose={onClose}
         onSelect={vi.fn()}
         onToggleFavorite={vi.fn()}
-      />
+      />,
     );
 
     fireEvent.click(screen.getByRole("button", { name: /close/i }));
@@ -205,7 +205,7 @@ describe("FavoritesSheet", () => {
         onClose={vi.fn()}
         onSelect={vi.fn()}
         onToggleFavorite={vi.fn()}
-      />
+      />,
     );
     expect(container.firstChild).toMatchSnapshot();
   });

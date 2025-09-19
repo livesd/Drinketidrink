@@ -11,7 +11,7 @@ vi.mock("../api/cocktails", () => ({
     { name: "Lime", measure: "Juice of 1" },
     { name: "Sugar", measure: "2 tsp" },
     { name: "Mint", measure: "2-4" },
-  ])
+  ]),
 }));
 
 const drink: Drink = {
@@ -40,7 +40,7 @@ test("renders title and toggles favorite", () => {
       drink={drink}
       isFavorite={false}
       onToggleFavorite={onToggle}
-    />
+    />,
   );
 
   expect(screen.getByRole("heading", { name: /mojito/i })).toBeInTheDocument();
@@ -53,28 +53,28 @@ test("renders title and toggles favorite", () => {
 // Add these snapshot tests:
 test("Card component matches snapshot when not favorite", () => {
   const onToggle = vi.fn();
-  
+
   const { container } = render(
     <CocktailCard
       drink={drink}
       isFavorite={false}
       onToggleFavorite={onToggle}
-    />
+    />,
   );
-  
+
   expect(container.firstChild).toMatchSnapshot();
 });
 
 test("Card component matches snapshot when favorite", () => {
   const onToggle = vi.fn();
-  
+
   const { container } = render(
     <CocktailCard
       drink={drink}
       isFavorite={true}
       onToggleFavorite={onToggle}
-    />
+    />,
   );
-  
+
   expect(container.firstChild).toMatchSnapshot();
 });
