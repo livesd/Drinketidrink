@@ -1,4 +1,5 @@
 # Project 1: Drink Recipe Viewer
+This project was developed by my team and I for the course IT2810 Web Development. You can read more about the application and process below.
 
 [Open in Virtual Machine](http://129.241.104.125/project1/)
 
